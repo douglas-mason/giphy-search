@@ -2,7 +2,11 @@ import React from 'react';
 import { ImageCard } from '../../../_shared/components/image-card/image-card.component';
 import { GiphyImage } from '../../../_shared/types/image.type';
 import { DeleteOutlined } from '@ant-design/icons';
-import { favoriteCategoryStyles } from './favorite-category.styles';
+import {
+  favoriteCategoryStyles,
+  imageContainerStyles,
+} from './favorite-category.styles';
+import { useFavorites } from '../../../_shared/contexts/useFavorites';
 
 export interface FavoriteCategoryProps {
   images: GiphyImage[];
@@ -13,12 +17,15 @@ export const FavoriteCategory: React.FC<FavoriteCategoryProps> = ({
   category,
   images,
 }) => {
-  const onDeleteClick = () => {};
+  const { remove } = useFavorites();
+  const onDeleteClick = (image: GiphyImage) => {
+    remove(image, category);
+  };
   const renderImages = () => {
     return images.map((image) => (
       <div className={favoriteCategoryStyles}>
         <ImageCard url={image.url} alt={image.description} />
-        <button>
+        <button onClick={() => onDeleteClick(image)}>
           <DeleteOutlined />
         </button>
       </div>
@@ -27,7 +34,7 @@ export const FavoriteCategory: React.FC<FavoriteCategoryProps> = ({
   return (
     <section>
       <h3>{category}</h3>
-      {renderImages()}
+      <div className={imageContainerStyles}>{renderImages()}</div>
     </section>
   );
 };
