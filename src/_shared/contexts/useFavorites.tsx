@@ -25,7 +25,6 @@ export const useFavorites = () => useContext(FavoritesContext);
 export const FavoritesProvider: React.FC = ({ children }) => {
   const [favorites, setFavorites] = useState<Favorites>(new Map());
   const addToFavorites = (image: GiphyImage, category: string) => {
-    console.log(category);
     const images = favorites.get(category);
     if (images) {
       images.push(image);
@@ -38,10 +37,14 @@ export const FavoritesProvider: React.FC = ({ children }) => {
   const removeFromFavorites = (image: GiphyImage, category: string) => {
     const images = favorites.get(category);
     if (!images) return;
-    const indexToRemove = images?.findIndex((i) => i.url === image.url);
-    if (indexToRemove) {
+    const indexToRemove = images.findIndex((i) => i.url === image.url);
+    if (indexToRemove > -1) {
       images.splice(indexToRemove, 1);
-      favorites.set(category, images);
+      if (!images.length) {
+        favorites.delete(category);
+      } else {
+        favorites.set(category, images);
+      }
     }
     setFavorites(new Map(favorites));
   };
