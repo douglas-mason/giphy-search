@@ -2,6 +2,7 @@ import { Button, Input } from 'antd';
 import React, { SyntheticEvent, useState } from 'react';
 import { searchGiphy } from '../../_shared/services/giphy-api.service';
 import { GiphyImage } from '../../_shared/types/image.type';
+import { searchFormStyles } from './search-form.styles';
 
 export interface SearchFormProps {
   onSubmit: (imageResults: GiphyImage[], query: string) => void;
@@ -28,7 +29,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={handleOnSubmit} className={searchFormStyles}>
       <Input
         placeholder="Search for a gif"
         value={query}
