@@ -1,18 +1,15 @@
 import './App.css';
-import  React, { useEffect }  from "react";
-import { Button } from 'antd';
-import { searchGiphy } from './_shared/services/giphy-api.service';
+import React from 'react';
+import { ImageSearchPage } from './image-search/image-search.page';
+import { FavoritesProvider } from './_shared/contexts/useFavorites';
 
 function App() {
-  useEffect(() => {
-    searchGiphy("cupcake").then(data => console.log(data))
-  }, [])
-
   return (
     <div className="App">
-      <Button >Click</Button>
-      Test
-
+      <h1>GIPHY SEARCH</h1>
+      <FavoritesProvider>
+        <ImageSearchPage />
+      </FavoritesProvider>
     </div>
   );
 }
