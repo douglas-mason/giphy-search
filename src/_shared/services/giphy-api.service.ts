@@ -34,6 +34,11 @@ export const searchGiphy = async (query: string, limit = 12, offset = 0) => {
 };
 
 export const searchByCategory = (cat: string) => {
-  const items = fetch(`${SEARCH_URL}?category=${cat}`).then((r) => r.json());
-  return items;
+  try {
+    const items = fetch(`${SEARCH_URL}?category=${cat}`).then((r) => r.json());
+    return items;
+  } catch (error) {
+    console.error('Failed to fetch category:', error);
+    throw error; // or handle it more gracefully depending on your error handling strategy
+  }
 };
