@@ -33,7 +33,7 @@ export const searchGiphy = async (query: string, limit = 12, offset = 0) => {
   return items;
 };
 
-export let searchByCategory = (cat: string) => {
-  const items = fetch(SEARCH_URL + '?=' + cat).then((r) => r.json());
+export const searchByCategory = (cat: string) => {
+  const items = fetch(`${SEARCH_URL}?category=${cat}`).then((r) => r.json());
   return items;
 };
