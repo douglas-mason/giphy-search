@@ -32,3 +32,11 @@ export const searchGiphy = async (query: string, limit = 12, offset = 0) => {
   }));
   return items;
 };
+
+export let searchByCategory = async (cat: string | null) => {
+  // set query string parameter for category
+  const items = fetch(`${SEARCH_URL}?=${encodeURIComponent(cat)}`).then((r) =>
+    r.json()
+  );
+  return items;
+};
